@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { HistoryItem } from '../types';
 
@@ -9,7 +8,7 @@ interface HistoryListProps {
 const HistoryList: React.FC<HistoryListProps> = ({ history }) => {
   if (history.length === 0) {
     return (
-      <div className="text-center py-24 bg-stone-100/50 rounded-[40px] border-2 border-dashed border-stone-200">
+      <div className="text-center py-24 bg-stone-100/50 rounded-none border border-black border-dashed">
         <p className="text-stone-400 font-medium">아직 검색 기록이 없습니다.</p>
       </div>
     );
@@ -18,10 +17,10 @@ const HistoryList: React.FC<HistoryListProps> = ({ history }) => {
   return (
     <div className="space-y-4">
       {history.map(item => (
-        <div key={item.id} className="bg-white p-7 rounded-3xl border border-stone-100 flex items-center justify-between group hover:border-stone-950 hover:shadow-xl hover:shadow-stone-900/5 transition-all duration-300">
+        <div key={item.id} className="bg-white p-7 rounded-none border border-black flex items-center justify-between group shadow-none hover:bg-stone-50 transition-all duration-300">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="text-[10px] font-black text-stone-950 px-2.5 py-1 bg-stone-100 rounded-full uppercase tracking-widest">PAIRED</span>
+              <span className="text-[10px] font-black text-stone-950 px-2.5 py-1 bg-stone-100 rounded-none uppercase tracking-widest border border-stone-200">PAIRED</span>
               <span className="text-[11px] text-stone-400 font-medium uppercase tracking-tighter">{item.date}</span>
             </div>
             <h4 className="font-bold text-xl text-stone-950 group-hover:translate-x-1 transition-transform">
@@ -35,7 +34,7 @@ const HistoryList: React.FC<HistoryListProps> = ({ history }) => {
               ))}
             </div>
           </div>
-          <button className="w-12 h-12 rounded-full flex items-center justify-center bg-stone-50 text-stone-300 group-hover:bg-stone-950 group-hover:text-white transition-all shadow-sm">
+          <button className="w-12 h-12 rounded-none flex items-center justify-center bg-stone-50 border border-stone-200 text-stone-300 group-hover:bg-stone-950 group-hover:text-white group-hover:border-black transition-all shadow-none">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>

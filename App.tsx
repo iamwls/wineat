@@ -35,6 +35,7 @@ const App: React.FC = () => {
   const handleRecommend = (wines: Wine[], food: string, budget: string) => {
     setRecommendations(wines);
     setLastSearch({ food, budget });
+    setView('results');
     
     const newHistoryItem: HistoryItem = {
       id: Date.now().toString(),
@@ -54,53 +55,74 @@ const App: React.FC = () => {
     });
   };
 
+  const resetToHome = () => {
+    setView('home');
+    setRecommendations([]);
+  };
+
   return (
-    <div className="min-h-screen flex flex-col selection:bg-stone-900 selection:text-white">
-      <Header currentView={view} setView={setView} />
+    <div className="min-h-screen flex flex-col selection:bg-[#1D1717] selection:text-white bg-stone-50">
+      <Header currentView={view} setView={setView} onHomeClick={resetToHome} />
       
       <main className="flex-grow">
         {view === 'home' && (
-          <>
-            <Hero />
-            <div id="recommend" className="max-w-4xl mx-auto px-4 py-4">
+          <Hero onStart={() => setView('discovery')} />
+        )}
+
+        {view === 'discovery' && (
+          <div className="max-w-4xl mx-auto px-4 py-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="mb-10 text-center">
+              <h2 className="text-4xl font-logo tracking-tighter text-[#1D1717] mb-2 uppercase italic">discovery</h2>
+              <p className="text-stone-400 font-medium tracking-tight">당신의 취향을 알려주세요.</p>
+            </div>
+            {isSearching ? (
+              <SommelierLoader />
+            ) : (
               <RecommendationForm 
                 onResults={handleRecommend} 
                 setIsLoading={setIsSearching}
               />
-              
-              {isSearching ? (
-                <div className="mt-20">
-                  <SommelierLoader />
-                </div>
-              ) : (
-                recommendations.length > 0 && (
-                  <div className="mt-20">
-                    <h2 className="text-2xl font-bold text-stone-900 mb-2 tracking-tight">
-                      "{lastSearch.food}"에 어울리는 추천 와인
-                    </h2>
-                    <p className="text-stone-500 mb-10 text-sm">예산 {lastSearch.budget} 내외의 최상의 마리아주입니다.</p>
-                    <WineResultList 
-                      wines={recommendations} 
-                      favorites={favorites} 
-                      onToggleFavorite={toggleFavorite} 
-                    />
-                  </div>
-                )
-              )}
+            )}
+          </div>
+        )}
+
+        {view === 'results' && (
+          <div className="max-w-4xl mx-auto px-4 py-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div>
+                <h2 className="text-3xl font-bold text-[#1D1717] mb-2 tracking-tight">
+                  "{lastSearch.food}"에 어울리는 추천 와인
+                </h2>
+                <p className="text-stone-500 text-sm font-medium">예산 {lastSearch.budget} 내외의 최상의 마리아주입니다.</p>
+              </div>
+              <button 
+                onClick={() => setView('discovery')}
+                className="text-[11px] font-black uppercase tracking-widest text-stone-400 hover:text-stone-950 transition-colors flex items-center gap-2 border-b border-stone-200 pb-1"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                다시 검색하기
+              </button>
             </div>
-          </>
+            <WineResultList 
+              wines={recommendations} 
+              favorites={favorites} 
+              onToggleFavorite={toggleFavorite} 
+            />
+          </div>
         )}
 
         {view === 'history' && (
-          <div className="max-w-4xl mx-auto px-4 py-12">
-            <h2 className="text-3xl font-bold text-stone-900 mb-10 tracking-tight">나의 검색 히스토리</h2>
+          <div className="max-w-4xl mx-auto px-4 py-12 animate-in fade-in duration-500">
+            <h2 className="text-3xl font-logo tracking-tighter text-[#1D1717] mb-10">history</h2>
             <HistoryList history={history} />
           </div>
         )}
 
         {view === 'favorites' && (
-          <div className="max-w-4xl mx-auto px-4 py-12">
-            <h2 className="text-3xl font-bold text-stone-900 mb-10 tracking-tight">즐겨찾는 와인</h2>
+          <div className="max-w-4xl mx-auto px-4 py-12 animate-in fade-in duration-500">
+            <h2 className="text-3xl font-logo tracking-tighter text-[#1D1717] mb-10">favorites</h2>
             <FavoritesList 
               favorites={favorites} 
               onToggleFavorite={toggleFavorite} 
@@ -109,12 +131,14 @@ const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="bg-stone-950 text-stone-500 py-16 px-4 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="font-script text-3xl text-stone-100 mb-4">wineat!</h1>
-          <p className="text-mm font-light tracking-wide">"wine + eat = wineat...!"</p>
-          <div className="mt-12 border-t border-stone-900 pt-8 text-[11px] uppercase tracking-widest opacity-50">
-            © 2026 Wineat. All rights reserved. | Powered by Gemini AI
+      <footer className="bg-stone-50 border-t border-stone-100 py-10 px-6 mt-12">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-end justify-between gap-6">
+          <div className="text-center md:text-left">
+            <h1 className="font-logo text-4xl text-[#1D1717] mb-2 tracking-tighter">wineat!</h1>
+            <p className="font-cute text-xl text-stone-400 italic">"wine + eat = wineat...!"</p>
+          </div>
+          <div className="text-stone-400 text-[10px] uppercase tracking-[0.2em] font-bold opacity-70">
+            © 2026 Wineat. All rights reserved.
           </div>
         </div>
       </footer>

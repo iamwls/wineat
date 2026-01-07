@@ -19,4 +19,4 @@ export interface HistoryItem {
   wines: Wine[];
 }
 
-export type ViewState = 'home' | 'history' | 'favorites';
+export type ViewState = 'home' | 'discovery' | 'results' | 'history' | 'favorites';
