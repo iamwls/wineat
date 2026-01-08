@@ -30,6 +30,11 @@
             font-style: italic;
             letter-spacing: -0.05em;
         }
+        .font-serif-regular {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            font-style: normal;
+        }
         .font-instrument-sans {
             font-family: 'Instrument Sans', sans-serif;
         }
@@ -40,7 +45,7 @@
             scroll-behavior: smooth;
         }
         
-        /* 고양이 이미지용 절제된 뚝딱거리는(Jittery) 애니메이션: 횟수를 줄여 정적인 느낌과 공존 */
+        /* 고양이 이미지용 절제된 뚝딱거리는(Jittery) 애니메이션 */
         @keyframes doodle-jitter {
             0%, 20%, 40%, 60%, 80%, 100% { transform: translate(0, 0) rotate(0deg); }
             10% { transform: translate(-2px, -3px) rotate(-1deg); }
@@ -49,7 +54,6 @@
             70% { transform: translate(2px, 1px) rotate(0.5deg); }
         }
         .animate-doodle-jitter {
-            /* 3초 주기로 변경하여 훨씬 여유롭고 가끔 뚝딱거리는 느낌 전달 */
             animation: doodle-jitter 3s steps(1) infinite;
         }
 
@@ -60,8 +64,17 @@
         .animate-float {
             animation: float 3s ease-in-out infinite;
         }
+
+        /* 고양이 고개 까딱 애니메이션 */
+        @keyframes cat-nod {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        .animate-cat-nod {
+            animation: cat-nod 1.8s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
         
-        /* 약해진 뚝딱 애니메이션 */
         @keyframes thump {
             0%, 75%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
             85% { transform: translateY(-7px) scale(1.03) rotate(1deg); }
@@ -71,7 +84,6 @@
             animation: thump 1.6s cubic-bezier(0.3, 1.6, 0.4, 1) infinite;
         }
 
-        /* 느낌표 전용: 튀어오를 때 색상 변경 (#FF89C2) */
         @keyframes thump-special {
             0%, 75%, 100% { transform: translateY(0) scale(1) rotate(0deg); color: var(--brand-color); }
             85% { transform: translateY(-7px) scale(1.03) rotate(1deg); color: var(--accent-pink); }
@@ -79,6 +91,17 @@
         .animate-thump-special {
             display: inline-block;
             animation: thump-special 1.6s cubic-bezier(0.3, 1.6, 0.4, 1) infinite;
+        }
+
+        /* 와인잔 틸트 애니메이션 */
+        @keyframes wine-tilt {
+            0%, 100% { transform: rotate(-12deg); }
+            50% { transform: rotate(12deg); }
+        }
+        .animate-wine-tilt {
+            animation: wine-tilt 1s ease-in-out infinite;
+            display: inline-block;
+            transform-origin: bottom center;
         }
         
         @keyframes draw {
@@ -97,7 +120,6 @@
             animation: think 1.5s infinite;
         }
 
-        /* Marquee Animation - Slower (60s) */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }

@@ -25,58 +25,79 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onStart }) => {
   const [isBtnHovered, setIsBtnHovered] = useState(false);
 
+  // Hand-drawn wobbly border for that "cute" sketch look
+  const normalBorder = '255px 25px 225px 35px/35px 225px 25px 255px';
+
   return (
-    <section className="bg-white pt-12 pb-24 flex flex-col items-center overflow-hidden min-h-[70vh] justify-center">
+    <section className="bg-white pt-[80px] pb-0 flex flex-col items-center overflow-hidden min-h-[70vh] justify-center">
       <div className="text-center px-4 max-w-4xl w-full">
         <div className="mb-12">
           <AnimatedLogo />
         </div>
         
         {/* Cat Image Section with wine/eat text */}
-        <div className="relative flex items-center justify-between w-full mb-16">
-          <span className="font-logo text-2xl md:text-4xl text-stone-400 select-none tracking-tight relative -top-12 md:-top-24">wine</span>
+        <div className="relative flex items-center justify-between w-full mb-12">
+          <span className="font-logo text-xl md:text-3xl text-stone-300 select-none tracking-tight relative -top-8 md:-top-16">wine</span>
           
           <img
-            src="https://file.notion.so/f/f/b7de9f98-6fe4-4491-bbd8-6dff9b3fbe0b/149f515f-fe75-4ede-a23e-fa11c9e4635c/waeat.png?table=block&id=2e1cf5e8-edac-8059-8c77-e710e974b705&spaceId=b7de9f98-6fe4-4491-bbd8-6dff9b3fbe0b&expirationTimestamp=1767830400000&signature=I_HbD3FqAyHdlEw7M8DSFVXz4Tb4MPNddqfIxWvCbAg&downloadName=waeat.png"
+            src="https://file.notion.so/f/f/b7de9f98-6fe4-4491-bbd8-6dff9b3fbe0b/149f515f-fe75-4ede-a23e-fa11c9e4635c/waeat.png?table=block&id=2e1cf5e8-edac-8059-8c77-e710e974b705&spaceId=b7de9f98-6fe4-4491-bbd8-6dff9b3fbe0b&expirationTimestamp=1767902400000&signature=SqF5SESLBnXlQICF5VxFM6jxYmHfkrvrar01G1Bm5Aw&downloadName=waeat.png"
             alt="고양이 와인 그림"
-            className="w-72 md:w-[500px] animate-doodle-jitter z-10"
+            className="w-64 md:w-[400px] animate-doodle-jitter z-10"
           />      
           
-          <span className="font-logo text-2xl md:text-4xl text-stone-400 select-none tracking-tight relative -top-12 md:-top-24">eat</span>
+          <span className="font-logo text-xl md:text-3xl text-stone-300 select-none tracking-tight relative -top-8 md:-top-16">eat</span>
         </div>
         
         <div className="w-full flex flex-col items-center">
           <div 
-            className="relative group max-w-xs w-full cursor-pointer mt-4 animate-in fade-in zoom-in duration-700 delay-300"
+            className="relative group max-w-[250px] w-full cursor-pointer animate-in fade-in zoom-in duration-700 delay-300"
             onMouseEnter={() => setIsBtnHovered(true)}
             onMouseLeave={() => setIsBtnHovered(false)}
             onClick={onStart}
           >
-            <div 
-              className="absolute inset-0 border-[1.2px] border-stone-400 -z-0 pointer-events-none transition-all duration-500 ease-in-out"
-              style={{
-                borderRadius: isBtnHovered 
-                  ? '140px 170px 130px 180px / 125px 105px 140px 110px'
-                  : '0px',
-                transform: isBtnHovered ? 'rotate(1.5deg) scale(1.05)' : 'rotate(0deg) scale(1)',
-                opacity: isBtnHovered ? 0.8 : 0
-              }}
-            ></div>
+            {/* Tagline above button */}
+            <p className="mb-6 text-stone-400 text-base md:text-lg font-instrument-sans italic animate-pulse tracking-wide">
+              wine + eat = wineat. . . !
+            </p>
 
-            <button 
-              className="relative w-full py-5 font-logo uppercase text-2xl tracking-tighter flex items-center justify-center gap-3 transition-all duration-500 ease-in-out active:scale-[0.98] z-10 text-stone-800 bg-white"
-              style={{
-                border: isBtnHovered ? '2px solid #1D1717' : '1px solid #000',
-                borderRadius: isBtnHovered 
-                  ? '145px 160px 150px 155px / 125px 115px 130px 110px'
-                  : '0px',
-                boxShadow: isBtnHovered ? '6px 8px 0px 0px #1D1717' : '0px 0px 0px 0px rgba(0,0,0,0)',
-                transform: isBtnHovered ? 'translateY(-4px)' : 'translateY(0)'
-              }}
-            >
-              나만의 와잇 찾기
-            </button>
-            <p className="mt-8 text-stone-400 text-sm font-instrument-sans italic animate-pulse">Click to start your journey</p>
+            <div className="relative">
+              <button 
+                className="relative w-full py-3.5 font-serif-regular lowercase text-3xl md:text-4xl tracking-tighter flex items-center justify-center transition-all duration-500 ease-in-out active:scale-[0.96] z-10 bg-white text-stone-800"
+                style={{
+                  border: '2px solid #1D1717',
+                  borderRadius: normalBorder,
+                  transform: isBtnHovered ? 'translateY(-2px)' : 'translateY(0)'
+                }}
+              >
+                <span className="relative inline-block">
+                  start pairing!
+                  {/* Light Pink Underline Animation */}
+                  <span 
+                    className="absolute bottom-1 left-0 w-full h-2.5 bg-[#FFD1DC]/60 -z-10 transition-transform duration-500 ease-out origin-left"
+                    style={{ 
+                      transform: isBtnHovered ? 'scaleX(1) rotate(-1deg)' : 'scaleX(0) rotate(-1deg)',
+                      borderRadius: '20% 80% 30% 70% / 60% 40% 60% 40%' 
+                    }}
+                  ></span>
+                </span>
+              </button>
+
+              {/* Hand-drawn shadow layer for cute depth */}
+              <div 
+                className="absolute inset-0 border border-stone-100 -z-0 pointer-events-none transition-all duration-300"
+                style={{
+                  borderRadius: normalBorder,
+                  transform: isBtnHovered ? 'translate(3px, 3px)' : 'translate(1.5px, 1.5px)',
+                  opacity: isBtnHovered ? 0 : 1
+                }}
+              ></div>
+            </div>
+            
+            {/* Minimal hand-drawn underline for the button container */}
+            <div 
+              className="mt-4 mx-auto w-1/4 h-[1px] bg-stone-100 rounded-full transition-all duration-500"
+              style={{ width: isBtnHovered ? '40%' : '15%', opacity: isBtnHovered ? 1 : 0.5 }}
+            ></div>
           </div>
         </div>
       </div>

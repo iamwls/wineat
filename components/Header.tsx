@@ -38,15 +38,15 @@ const Header: React.FC<HeaderProps> = ({ currentView, setView, onHomeClick }) =>
                 onClick={() => item.id === 'home' ? onHomeClick() : setView(item.id)}
                 className={`text-lg font-logo tracking-tighter transition-all px-1 ${
                   isActive(item.id)
-                  ? 'text-[#1D1717]' 
-                  : 'text-stone-300 hover:text-[#1D1717]'
+                  ? (item.id === 'favorites' ? 'text-[#FF89C2]' : 'text-[#1D1717]') 
+                  : `text-stone-300 ${item.id === 'favorites' ? 'hover:text-[#FF89C2]' : 'hover:text-[#1D1717]'}`
                 }`}
               >
                 {item.label}
               </button>
               {isActive(item.id) && (
                 <div 
-                  className="absolute -bottom-1 w-1.5 h-1.5 bg-[#1D1717]" 
+                  className={`absolute -bottom-1 w-1.5 h-1.5 ${item.id === 'favorites' ? 'bg-[#FF89C2]' : 'bg-[#1D1717]'}`} 
                   style={{ borderRadius: '50%' }}
                 />
               )}
