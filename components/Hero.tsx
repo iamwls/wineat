@@ -40,7 +40,7 @@ const Hero: React.FC<HeroProps> = ({ onStart }) => {
           <span className="font-logo text-xl md:text-3xl text-stone-300 select-none tracking-tight relative -top-8 md:-top-16">wine</span>
           
           <img
-            src="https://file.notion.so/f/f/b7de9f98-6fe4-4491-bbd8-6dff9b3fbe0b/149f515f-fe75-4ede-a23e-fa11c9e4635c/waeat.png?table=block&id=2e1cf5e8-edac-8059-8c77-e710e974b705&spaceId=b7de9f98-6fe4-4491-bbd8-6dff9b3fbe0b&expirationTimestamp=1767902400000&signature=SqF5SESLBnXlQICF5VxFM6jxYmHfkrvrar01G1Bm5Aw&downloadName=waeat.png"
+            src="https://file.notion.so/f/f/b7de9f98-6fe4-4491-bbd8-6dff9b3fbe0b/149f515f-fe75-4ede-a23e-fa11c9e4635c/waeat.png?table=block&id=2e1cf5e8-edac-8059-8c77-e710e974b705&spaceId=b7de9f98-6fe4-4491-bbd8-6dff9b3fbe0b&expirationTimestamp=1767988800000&signature=KuxeObDiupVe0vg1S4u4OCWPHk7PBsjbmwfl7CX0rCg&downloadName=waeat.png"
             alt="고양이 와인 그림"
             className="w-64 md:w-[400px] animate-doodle-jitter z-10"
           />      

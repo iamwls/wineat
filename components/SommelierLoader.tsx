@@ -1,10 +1,14 @@
 
 import React from 'react';
 
-const SommelierLoader: React.FC = () => {
+interface SommelierLoaderProps {
+  isEmbedded?: boolean;
+}
+
+const SommelierLoader: React.FC<SommelierLoaderProps> = ({ isEmbedded = false }) => {
   return (
-    <div className="flex flex-col items-center justify-center py-10">
-      <div className="relative w-40 h-40 mb-6 animate-float">
+    <div className={`flex flex-col items-center justify-center ${isEmbedded ? 'py-4' : 'py-10'}`}>
+      <div className={`relative ${isEmbedded ? 'w-32 h-32' : 'w-40 h-40'} mb-6 animate-float`}>
         <svg viewBox="0 0 100 100" className="w-full h-full text-[#1D1717] fill-none stroke-[#1D1717] stroke-[2.5]">
           {/* Head Shape */}
           <circle cx="50" cy="60" r="32" fill="white" className="path-draw" />
@@ -26,8 +30,10 @@ const SommelierLoader: React.FC = () => {
           <circle cx="90" cy="12" r="1.5" className="think-dot fill-[#1D1717]" style={{ animationDelay: '0.3s' }} />
         </svg>
       </div>
-      <div className="text-center">
-        <p className="text-3xl font-logo text-[#1D1717] mb-3 tracking-tighter">"wine + eat = wineat...!"</p>
+      <div className="text-center px-4">
+        <p className={`${isEmbedded ? 'text-xl' : 'text-2xl'} font-instrument-sans font-normal text-[#1D1717] mb-3 tracking-tight`}>
+          "wine + eat = wineat...!"
+        </p>
         <p className="text-sm text-stone-400 font-medium tracking-tight">최상의 마리아주를 위해 고민하고 있어요.</p>
       </div>
     </div>

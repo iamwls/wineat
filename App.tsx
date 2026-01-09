@@ -6,7 +6,6 @@ import RecommendationForm from './components/RecommendationForm';
 import WineResultList from './components/WineResultList';
 import HistoryList from './components/HistoryList';
 import FavoritesList from './components/FavoritesList';
-import SommelierLoader from './components/SommelierLoader';
 import ProgressBar from './components/ProgressBar';
 import { Wine, HistoryItem, ViewState } from './types';
 
@@ -47,6 +46,7 @@ const App: React.FC = () => {
       wines
     };
     setHistory(prev => [newHistoryItem, ...prev].slice(0, 20));
+    setIsSearching(false);
   };
 
   const toggleFavorite = (wine: Wine) => {
@@ -61,11 +61,13 @@ const App: React.FC = () => {
     setView('home');
     setDiscoveryStep(1);
     setRecommendations([]);
+    setIsSearching(false);
   };
 
   const handleDiscoveryStart = () => {
     setDiscoveryStep(1);
     setView('discovery');
+    setIsSearching(false);
   };
 
   return (
@@ -79,18 +81,15 @@ const App: React.FC = () => {
 
         {view === 'discovery' && (
           <div className="max-w-4xl mx-auto px-4 pt-[72px] pb-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {!isSearching && <ProgressBar currentStep={discoveryStep} />}
-            {isSearching ? (
-              <SommelierLoader />
-            ) : (
-              <div className="mt-0">
-                <RecommendationForm 
-                  onResults={handleRecommend} 
-                  setIsLoading={setIsSearching}
-                  onStepChange={setDiscoveryStep}
-                />
-              </div>
-            )}
+            <ProgressBar currentStep={discoveryStep} />
+            <div className="mt-0">
+              <RecommendationForm 
+                onResults={handleRecommend} 
+                setIsLoading={setIsSearching}
+                isLoading={isSearching}
+                onStepChange={setDiscoveryStep}
+              />
+            </div>
           </div>
         )}
 
