@@ -5,6 +5,7 @@ export interface Wine {
   priceRange: string;
   pairingReason: string;
   score: number;
+  imageUrl?: string;
 }
 
 export interface RecommendationResult {
