@@ -2,13 +2,13 @@
 import React from 'react';
 
 interface ProgressBarProps {
-  currentStep: number; // 1, 2, or 3
+  currentStep: number; // 1 or 2
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
   // Hand-drawn wobbly border-radius for doodle effect
   const doodleRadius = "48% 52% 50% 50% / 55% 45% 55% 45%";
-  const steps = [1, 2, 3];
+  const steps = [1, 2];
 
   // Nodding Cat Icon
   const NoddingCat = () => (
@@ -92,14 +92,13 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
 
   return (
     <div className="w-full max-w-sm mx-auto mb-8 px-12 relative h-10 flex items-center">
-      {/* Hand-drawn Connecting Line (SVG) - Improved visibility */}
+      {/* Hand-drawn Connecting Line (SVG) */}
       <div className="absolute inset-0 px-[52px] z-0 flex items-center">
         <svg 
           className="w-full h-4 overflow-visible" 
           viewBox="0 0 320 20" 
           preserveAspectRatio="none"
         >
-          {/* Base Sketchy Line (Stone-200 for better visibility) */}
           <path 
             d="M 0 10 Q 80 8.5, 160 10 T 320 11.5" 
             stroke="#E7E5E4" 
@@ -108,7 +107,6 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
             strokeLinecap="round" 
           />
           
-          {/* Active Sketchy Line (Brand Dark) */}
           <path 
             d="M 0 10 Q 80 8.5, 160 10 T 320 11.5" 
             stroke="#1D1717" 
@@ -116,7 +114,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
             fill="none" 
             strokeLinecap="round"
             strokeDasharray="320"
-            strokeDashoffset={320 - (320 * ((currentStep - 1) / 2))}
+            strokeDashoffset={currentStep === 2 ? 0 : 320}
             style={{ transition: 'stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1)' }}
           />
         </svg>
@@ -132,7 +130,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
               {/* Active Cat Animation - Perfectly Centered Above Node */}
               {isCurrent && <NoddingCat />}
 
-              {/* Doodle Circle Node - Small Size */}
+              {/* Doodle Circle Node */}
               <div 
                 className={`w-6 h-6 flex items-center justify-center transition-all duration-500 bg-white border-[2.5px] ${
                   isCurrent 
@@ -143,14 +141,12 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
                 }`}
                 style={{ borderRadius: doodleRadius }}
               >
-                {/* Past state indicator */}
                 {isPast && (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 )}
                 
-                {/* Visual pulse for current step */}
                 {isCurrent && (
                    <div className="w-1.5 h-1.5 bg-[#FF89C2] rounded-full animate-pulse" />
                 )}

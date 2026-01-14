@@ -2,19 +2,18 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Wine, RecommendationResult } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
-
 export const getWineRecommendations = async (food: string, budget: string): Promise<Wine[]> => {
+  // 매 호출 시 최신 API 키를 사용하기 위해 인스턴스를 내부에서 생성합니다.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `You are a world-class sommelier. A user wants to eat "${food}" and has a budget of approximately "${budget}". 
       Recommend the top 3 best matching wines that fit this budget. 
-      The pairing reason should be friendly and easy for a beginner to understand.
-      For the imageUrl, provide a high-quality Unsplash image URL that represents a wine bottle or a glass of that specific wine type. 
-      Format: https://images.unsplash.com/photo-[ID]?auto=format&fit=crop&q=80&w=800
-      Select professional photography IDs that match the wine type (Red, White, etc.).
-      Output the results in Korean for the pairing reason and names if common, otherwise use global names.`,
+      For each wine, provide BOTH the global/original name and a natural Korean translation/name.
+      The pairing reason should be friendly, polite, and must end with the "~요" style in Korean (e.g., "잘 어울려요", "추천드려요").
+      Output the results in JSON format.`,
       config: {
         responseMimeType: "application/json",
         responseSchema: {
@@ -25,14 +24,14 @@ export const getWineRecommendations = async (food: string, budget: string): Prom
               items: {
                 type: Type.OBJECT,
                 properties: {
-                  name: { type: Type.STRING, description: "Name of the wine" },
+                  name: { type: Type.STRING, description: "Original/Global name of the wine" },
+                  nameKo: { type: Type.STRING, description: "Korean name of the wine" },
                   type: { type: Type.STRING, enum: ['Red', 'White', 'Sparkling', 'Rosé', 'Dessert'] },
                   priceRange: { type: Type.STRING, description: "Estimated price range (e.g., 3-5만원)" },
                   pairingReason: { type: Type.STRING, description: "1-2 sentence explanation of why it pairs well" },
-                  score: { type: Type.NUMBER, description: "Matching score out of 100" },
-                  imageUrl: { type: Type.STRING, description: "Representative image URL from Unsplash" }
+                  score: { type: Type.NUMBER, description: "Matching score out of 100" }
                 },
-                required: ["name", "type", "priceRange", "pairingReason", "score", "imageUrl"]
+                required: ["name", "nameKo", "type", "priceRange", "pairingReason", "score"]
               }
             }
           },

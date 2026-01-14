@@ -1,11 +1,11 @@
 
 export interface Wine {
   name: string;
+  nameKo: string;
   type: 'Red' | 'White' | 'Sparkling' | 'Rosé' | 'Dessert';
   priceRange: string;
   pairingReason: string;
   score: number;
-  imageUrl?: string;
 }
 
 export interface RecommendationResult {
@@ -20,4 +20,4 @@ export interface HistoryItem {
   wines: Wine[];
 }
 
-export type ViewState = 'home' | 'discovery' | 'results' | 'history' | 'favorites';
+export type ViewState = 'home' | 'discovery' | 'results';
