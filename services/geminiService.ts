@@ -3,16 +3,15 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { Wine, RecommendationResult } from "../types";
 
 export const getWineRecommendations = async (food: string, budget: string): Promise<Wine[]> => {
-  // 매 호출 시 최신 API 키를 사용하기 위해 인스턴스를 내부에서 생성합니다.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
-      contents: `You are a world-class sommelier. A user wants to eat "${food}" and has a budget of approximately "${budget}". 
-      Recommend the top 3 best matching wines that fit this budget. 
-      For each wine, provide BOTH the global/original name and a natural Korean translation/name.
-      The pairing reason should be friendly, polite, and must end with the "~요" style in Korean (e.g., "잘 어울려요", "추천드려요").
+      contents: `You are a world-class sommelier. A user wants to eat "${food}" and has a budget of "${budget}". 
+      Recommend the top 3 best matching wines. 
+      Provide BOTH the global/original name and a natural Korean translation.
+      The pairing reason must be friendly and end with "~요" style.
       Output the results in JSON format.`,
       config: {
         responseMimeType: "application/json",
@@ -24,12 +23,12 @@ export const getWineRecommendations = async (food: string, budget: string): Prom
               items: {
                 type: Type.OBJECT,
                 properties: {
-                  name: { type: Type.STRING, description: "Original/Global name of the wine" },
-                  nameKo: { type: Type.STRING, description: "Korean name of the wine" },
+                  name: { type: Type.STRING },
+                  nameKo: { type: Type.STRING },
                   type: { type: Type.STRING, enum: ['Red', 'White', 'Sparkling', 'Rosé', 'Dessert'] },
-                  priceRange: { type: Type.STRING, description: "Estimated price range (e.g., 3-5만원)" },
-                  pairingReason: { type: Type.STRING, description: "1-2 sentence explanation of why it pairs well" },
-                  score: { type: Type.NUMBER, description: "Matching score out of 100" }
+                  priceRange: { type: Type.STRING },
+                  pairingReason: { type: Type.STRING },
+                  score: { type: Type.NUMBER }
                 },
                 required: ["name", "nameKo", "type", "priceRange", "pairingReason", "score"]
               }
