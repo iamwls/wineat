@@ -1,100 +1,134 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    
-    <!-- Primary Meta Tags -->
-    <title>Wineat (와잇) - AI 와인 페어링 큐레이션</title>
-    <meta name="title" content="Wineat (와잇) - AI 와인 페어링 큐레이션">
-    <meta name="description" content="오늘 드실 메뉴와 예산을 알려주세요. AI 소믈리에가 당신만을 위한 완벽한 와인 마리아주를 추천해 드립니다.">
-    <meta name="theme-color" content="#FAFAFA">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://wineat.vercel.app/">
-    <meta property="og:title" content="Wineat (와잇) - AI 와인 페어링 큐레이션">
-    <meta property="og:description" content="오늘의 메뉴에 딱 맞는 소믈리에의 와인 추천! 와잇(Wineat)에서 확인해보세요.">
-    <meta property="og:image" content="ogimg.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://wineat.vercel.app/">
-    <meta property="twitter:title" content="Wineat (와잇) - AI 와인 페어링 큐레이션">
-    <meta property="twitter:description" content="오늘의 메뉴에 딱 맞는 소믈리에의 와인 추천! 와잇(Wineat)에서 확인해보세요.">
-    <meta property="twitter:image" content="ogimg.png">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥂 wine + eat = wineat. . .!</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital,wght@0,400;1,400&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-    
     <style>
         :root {
             --brand-color: #1D1717;
             --accent-pink: #FF89C2;
         }
         body {
-            font-family: "Pretendard Variable", Pretendard, sans-serif;
+            /* 국문은 Pretendard를 우선적으로 사용하도록 설정 */
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
             color: var(--brand-color);
-            overflow-x: hidden;
-            background-color: #FAFAFA;
         }
-        /* 종이 텍스처 효과 */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.02;
-            z-index: 9999;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        .font-serif {
+            font-family: 'Playfair Display', serif;
         }
-
-        .font-serif { font-family: 'Playfair Display', serif; }
-        .font-cute { font-family: 'Gaegu', cursive; }
-        .font-logo { font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; letter-spacing: -0.05em; }
-        .font-serif-regular { font-family: 'Instrument Serif', serif; font-weight: 400; font-style: normal; }
-        .font-instrument-sans { font-family: 'Instrument Sans', sans-serif; }
+        .font-cute {
+            font-family: 'Gaegu', cursive;
+        }
+        .font-logo {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: -0.05em;
+        }
+        .font-serif-regular {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .font-instrument-sans {
+            font-family: 'Instrument Sans', sans-serif;
+        }
+        .text-brand {
+            color: var(--brand-color);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
         
+        /* 고양이 이미지용 절제된 뚝딱거리는(Jittery) 애니메이션 */
         @keyframes doodle-jitter {
             0%, 20%, 40%, 60%, 80%, 100% { transform: translate(0, 0) rotate(0deg); }
-            10% { transform: translate(-1px, -2px) rotate(-0.5deg); }
-            30% { transform: translate(1px, -1px) rotate(0.5deg); }
-            50% { transform: translate(-1px, 1px) rotate(-0.2deg); }
+            10% { transform: translate(-2px, -3px) rotate(-1deg); }
+            30% { transform: translate(2px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-0.5deg); }
+            70% { transform: translate(2px, 1px) rotate(0.5deg); }
         }
-        .animate-doodle-jitter { animation: doodle-jitter 4s steps(1) infinite; }
+        .animate-doodle-jitter {
+            animation: doodle-jitter 3s steps(1) infinite;
+        }
 
-        @keyframes cat-nod {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(3deg); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
-        .animate-cat-nod { animation: cat-nod 2s ease-in-out infinite; transform-origin: bottom center; }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* 고양이 고개 까딱 애니메이션 */
+        @keyframes cat-nod {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        .animate-cat-nod {
+            animation: cat-nod 1.8s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
         
         @keyframes thump {
-            0%, 80%, 100% { transform: translateY(0); }
-            85% { transform: translateY(-4px); }
+            0%, 75%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+            85% { transform: translateY(-7px) scale(1.03) rotate(1deg); }
         }
-        .animate-thump { display: inline-block; animation: thump 2s ease-in-out infinite; }
+        .animate-thump {
+            display: inline-block;
+            animation: thump 1.6s cubic-bezier(0.3, 1.6, 0.4, 1) infinite;
+        }
 
+        @keyframes thump-special {
+            0%, 75%, 100% { transform: translateY(0) scale(1) rotate(0deg); color: var(--brand-color); }
+            85% { transform: translateY(-7px) scale(1.03) rotate(1deg); color: var(--accent-pink); }
+        }
+        .animate-thump-special {
+            display: inline-block;
+            animation: thump-special 1.6s cubic-bezier(0.3, 1.6, 0.4, 1) infinite;
+        }
+
+        /* 와인잔 틸트 애니메이션 */
         @keyframes wine-tilt {
-            0%, 100% { transform: rotate(-10deg); }
-            50% { transform: rotate(10deg); }
+            0%, 100% { transform: rotate(-12deg); }
+            50% { transform: rotate(12deg); }
         }
-        .animate-wine-tilt { animation: wine-tilt 1.2s ease-in-out infinite; transform-origin: bottom center; }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
+        .animate-wine-tilt {
+            animation: wine-tilt 1s ease-in-out infinite;
+            display: inline-block;
+            transform-origin: bottom center;
         }
-        .animate-shake { animation: shake 0.2s ease-in-out 0s 2; }
+        
+        @keyframes draw {
+            to { stroke-dashoffset: 0; }
+        }
+        .path-draw {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 4s ease-out forwards;
+        }
+        @keyframes think {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        .think-dot {
+            animation: think 1.5s infinite;
+        }
 
-        html { scroll-behavior: smooth; }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 60s linear infinite;
+        }
     </style>
 <script type="importmap">
 {
@@ -107,7 +141,7 @@
 }
 </script>
 </head>
-<body class="antialiased">
+<body class="bg-stone-50 antialiased">
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
 </body>
