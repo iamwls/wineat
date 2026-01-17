@@ -2,11 +2,9 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Wine, RecommendationResult } from "../types";
 
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY as string;
-
-console.log("✅ VITE_GEMINI_API_KEY exists?", !!apiKey);
-
-const ai = new GoogleGenAI({ apiKey });
+// Always use const ai = new GoogleGenAI({apiKey: process.env.API_KEY}); as per the coding guidelines.
+// This also fixes the error regarding Property 'env' not existing on 'ImportMeta'.
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const getWineRecommendations = async (food: string, budget: string): Promise<Wine[]> => {
   try {
