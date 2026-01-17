@@ -2,9 +2,11 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Wine, RecommendationResult } from "../types";
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY || "",
- });
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY as string;
+
+console.log("✅ VITE_GEMINI_API_KEY exists?", !!apiKey);
+
+const ai = new GoogleGenAI({ apiKey });
 
 export const getWineRecommendations = async (food: string, budget: string): Promise<Wine[]> => {
   try {
