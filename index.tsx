@@ -1,3 +1,4 @@
+console.log('✅ index.tsx loaded');
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
