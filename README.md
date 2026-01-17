@@ -1,20 +1,14 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 🥂 wineat
 
-# Run and deploy your AI Studio app
+메뉴와 원하는 가격대를 입력하면 AI가 딱 맞는 와인을 추천해줘요! 🍷
 
-This contains everything you need to run your app locally.
+[![Wineat OG Image](https://wineat.vercel.app/ogimg.jpg)](https://wineat.vercel.app)
 
-View your app in AI Studio: https://ai.studio/apps/drive/1ywoeNdZaFwKltuVUpFrz4OpJVTPXkfnH
+## 🔗 Demo
+- https://wineat.vercel.app
 
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## ✨ Features
+- 메뉴 입력
+- 원하는 가격대 입력
+- 메뉴와 예산을 고려한 와인 페어링 추천
+- 결과 이미지 저장
