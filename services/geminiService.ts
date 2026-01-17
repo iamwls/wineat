@@ -3,7 +3,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { Wine, RecommendationResult } from "../types";
 
 const ai = new GoogleGenAI({
-  apiKey: (globalThis as any)?.process?.env?.VITE_GEMINI_API_KEY || "",
+  apiKey: process.env.GEMINI_API_KEY || "",
  });
 
 export const getWineRecommendations = async (food: string, budget: string): Promise<Wine[]> => {
